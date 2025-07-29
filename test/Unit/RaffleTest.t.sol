@@ -75,7 +75,7 @@ contract RaffleTest is Test {
 
     function testDontAllowPlayersToEnterWhileRaffleIsCalculating() public {
         // Arrange
-        vm.startPrank(PLAYER);
+        vm.prank(PLAYER);
         raffle.enterRaffle{value: entranceFee}();
         vm.warp(block.timestamp + interval + 1); // to make sure enough time has passed
         vm.roll(block.number + 1); // Change the block number to ensure the upkeep is needed
