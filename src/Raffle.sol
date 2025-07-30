@@ -48,6 +48,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     // Events
     event RaffleEntered(address indexed player);
     event RaffleWinnerPicked(address indexed winner);
+    event RequestedRaffleWinner(uint256 indexed requestId);
 
     constructor(
         uint256 entranceFee,
@@ -127,8 +128,9 @@ contract Raffle is VRFConsumerBaseV2Plus {
                 )
             });
 
-        // uint256 requestId =
-        s_vrfCoordinator.requestRandomWords(request);
+        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
+        // Althought its not needed as requestRandomWords will emit an event but it will make testing easier
+        emit RequestedRaffleWinner(requestId);
     }
 
     // Checks, Effects and Interactions pattern
